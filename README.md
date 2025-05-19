@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# 📝 ATS Resume Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Um sistema web para criação de currículos profissionais e otimizados para ATS (Applicant Tracking System), desenvolvido com React, Tailwind CSS e PDF-lib.
 
-## Available Scripts
+## 📌 Visão Geral
 
-In the project directory, you can run:
+Este projeto tem como objetivo facilitar a criação de currículos por meio de uma interface intuitiva, onde o usuário insere suas informações e gera automaticamente um PDF com layout profissional.
 
-### `npm start`
+## 🚀 Tecnologias Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React** — Biblioteca JavaScript para construção da interface
+- **Tailwind CSS** — Framework utilitário para estilização rápida e responsiva
+- **PDF-lib** — Biblioteca para criação e manipulação de arquivos PDF via JavaScript
+- **JavaScript (ES6+)**
+- **Git** — Controle de versão
+- **Linux** — Ambiente de desenvolvimento
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Funcionalidades
 
-### `npm test`
+- Inputs dinâmicos para:
+  - Experiências profissionais
+  - Formação acadêmica
+  - Idiomas
+  - Habilidades técnicas
+- Geração automática de currículo em PDF
+- Layout limpo, responsivo e amigável
+- Campos reutilizáveis com gerenciamento de estado no React
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📷 Preview
 
-### `npm run build`
+*(Adicione imagens ou GIFs do projeto rodando aqui)*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Como Rodar Localmente
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Acesse a pasta do projeto
+cd nome-do-repositorio
 
-### `npm run eject`
+# Instale as dependências
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Acesse em `http://localhost:5173` no navegador.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🎯 Próximos Passos
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Adicionar mais opções de personalização de layout
+- Implementar exportação para outros formatos
+- Salvar dados localmente (localStorage ou backend)
+- Autenticação e perfis de usuários (versão futura)
 
-## Learn More
+## 👨‍💻 Autor
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Desenvolvido por [Seu Nome Aqui], estudante de Ciência e Tecnologia com foco em Engenharia da Computação.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[LinkedIn](https://linkedin.com/in/seu-perfil) • [GitHub](https://github.com/seu-usuario)
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> Projeto em constante evolução. Feedbacks e sugestões são bem-vindos!
