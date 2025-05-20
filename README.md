@@ -1,4 +1,4 @@
-# 📝 ATS Resume Generator
+# 📝 ATS Currículo
 
 Um sistema web para criação de currículos profissionais e otimizados para ATS (Applicant Tracking System), desenvolvido com React, Tailwind CSS e PDF-lib.
 
@@ -13,7 +13,6 @@ Este projeto tem como objetivo facilitar a criação de currículos por meio de 
 - **PDF-lib** — Biblioteca para criação e manipulação de arquivos PDF via JavaScript
 - **JavaScript (ES6+)**
 - **Git** — Controle de versão
-- **Linux** — Ambiente de desenvolvimento
 
 ## ✨ Funcionalidades
 
