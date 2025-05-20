@@ -26,18 +26,14 @@ Este projeto tem como objetivo facilitar a criação de currículos por meio de 
 - Layout limpo, responsivo e amigável
 - Campos reutilizáveis com gerenciamento de estado no React
 
-## 📷 Preview
-
-*(Adicione imagens ou GIFs do projeto rodando aqui)*
-
 ## 🛠️ Como Rodar Localmente
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/codedgabriel/ats-curriculo
 
 # Acesse a pasta do projeto
-cd nome-do-repositorio
+cd ats-curriculo
 
 # Instale as dependências
 npm install
@@ -48,18 +44,11 @@ npm run dev
 
 Acesse em `http://localhost:5173` no navegador.
 
-## 🎯 Próximos Passos
-
-- Adicionar mais opções de personalização de layout
-- Implementar exportação para outros formatos
-- Salvar dados localmente (localStorage ou backend)
-- Autenticação e perfis de usuários (versão futura)
-
 ## 👨‍💻 Autor
 
-Desenvolvido por [Seu Nome Aqui], estudante de Ciência e Tecnologia com foco em Engenharia da Computação.
+Desenvolvido por D. G, estudante de Ciência e Tecnologia com foco em Engenharia da Computação.
 
-[LinkedIn](https://linkedin.com/in/seu-perfil) • [GitHub](https://github.com/seu-usuario)
+[LinkedIn](https://www.linkedin.com/in/codegabriel/) • [GitHub](https://github.com/codedgabriel)
 
 ---
 
