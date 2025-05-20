@@ -4,16 +4,16 @@ import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 function App() {
   // Opções de idioma para a aplicação
   const idiomasApp = [
-    { codigo: "pt", nome: "Português" },
-    { codigo: "en", nome: "English" },
-    { codigo: "es", nome: "Español" },
+    { codigo: "pt", nome: "Português", icone: "🇧🇷" },
+    { codigo: "en", nome: "English", icone: "🇺🇸" },
+    { codigo: "es", nome: "Español", icone: "🇪🇸" },
   ];
 
   // Textos traduzidos
   const textos = {
     pt: {
       tituloApp: "Gerador de Currículo",
-      subtituloApp: "Crie um currículo minimalista e otimizado para ATS",
+      subtituloApp: "Crie um currículo profissional em minutos",
       dicasATS: "Dicas para um currículo ATS-friendly",
       dicasLista: [
         "Use palavras-chave relevantes para a vaga",
@@ -59,7 +59,7 @@ function App() {
         linkedin: "seuperfil",
         portfolio: "Ex: github.com/seuuser",
         email: "Ex: seuemail@exemplo.com",
-        resumo: "Ex: Desenvolvedor Front-end com 5 anos de experiência...",
+        resumo: "Ex: Desenvolvedor Front-end com 5 anos de experiência em React e TypeScript. Especializado em criar interfaces de usuário responsivas e acessíveis...",
         curso: "Ex: Bacharelado em Ciência da Computação",
         instituicao: "Ex: Universidade de São Paulo",
         periodo: "Ex: 2015 - 2019",
@@ -100,7 +100,7 @@ function App() {
     },
     en: {
       tituloApp: "Resume Generator",
-      subtituloApp: "Create a minimalist and ATS-optimized resume",
+      subtituloApp: "Create a professional resume in minutes",
       dicasATS: "Tips for an ATS-friendly resume",
       dicasLista: [
         "Use relevant keywords for the position",
@@ -146,7 +146,7 @@ function App() {
         linkedin: "yourprofile",
         portfolio: "Ex: github.com/youruser",
         email: "Ex: your.email@example.com",
-        resumo: "Ex: Front-end Developer with 5 years of experience...",
+        resumo: "Ex: Front-end Developer with 5 years of experience in React and TypeScript. Specialized in creating responsive and accessible user interfaces...",
         curso: "Ex: Bachelor's in Computer Science",
         instituicao: "Ex: University of São Paulo",
         periodo: "Ex: 2015 - 2019",
@@ -187,7 +187,7 @@ function App() {
     },
     es: {
       tituloApp: "Generador de Currículum",
-      subtituloApp: "Crea un currículum minimalista y optimizado para ATS",
+      subtituloApp: "Crea un currículum profesional en minutos",
       dicasATS: "Consejos para un currículum compatible con ATS",
       dicasLista: [
         "Usa palabras clave relevantes para el puesto",
@@ -233,7 +233,7 @@ function App() {
         linkedin: "tuperfil",
         portfolio: "Ej: github.com/tuusuario",
         email: "Ej: tu.email@ejemplo.com",
-        resumo: "Ej: Desarrollador Front-end con 5 años de experiencia...",
+        resumo: "Ej: Desarrollador Front-end con 5 años de experiencia en React y TypeScript. Especializado en crear interfaces de usuario responsivas y accesibles...",
         curso: "Ej: Licenciatura en Informática",
         instituicao: "Ej: Universidad de São Paulo",
         periodo: "Ej: 2015 - 2019",
@@ -321,6 +321,7 @@ function App() {
   const [successMessage, setSuccessMessage] = useState("");
   const [habilidadesInput, setHabilidadesInput] = useState("");
   const [idiomaApp, setIdiomaApp] = useState("pt");
+  const [activeSection, setActiveSection] = useState("info");
 
   // Obter textos traduzidos com base no idioma selecionado
   const t = textos[idiomaApp];
@@ -641,7 +642,7 @@ function App() {
 
   const renderExperienceFields = () => {
     return formData.experiencias.map((exp, idx) => (
-      <div key={idx} className="mb-8 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm">
+      <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.cargo}</label>
@@ -649,7 +650,7 @@ function App() {
               type="text"
               value={exp.cargo}
               onChange={(e) => handleArrayChange("experiencias", idx, "cargo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.cargo}
             />
           </div>
@@ -659,7 +660,7 @@ function App() {
               type="text"
               value={exp.empresa}
               onChange={(e) => handleArrayChange("experiencias", idx, "empresa", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.empresa}
             />
           </div>
@@ -672,7 +673,7 @@ function App() {
               type="text"
               value={exp.periodo}
               onChange={(e) => handleArrayChange("experiencias", idx, "periodo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.periodo}
             />
           </div>
@@ -684,7 +685,7 @@ function App() {
             type="text"
             value={exp.tecnologias}
             onChange={(e) => handleArrayChange("experiencias", idx, "tecnologias", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             placeholder={t.placeholders.tecnologias}
           />
           <p className="text-xs text-gray-500 mt-2">{t.placeholders.tecnologias.split(":")[0]}</p>
@@ -695,7 +696,7 @@ function App() {
           <textarea
             value={exp.atividades}
             onChange={(e) => handleArrayChange("experiencias", idx, "atividades", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             rows={3}
             placeholder={t.placeholders.atividades}
           />
@@ -706,7 +707,7 @@ function App() {
           <textarea
             value={exp.resultados}
             onChange={(e) => handleArrayChange("experiencias", idx, "resultados", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             rows={3}
             placeholder={t.placeholders.resultados}
           />
@@ -716,7 +717,7 @@ function App() {
         <button
           type="button"
           onClick={() => removeField("experiencias", idx)}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors"
+          className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
           title="Remover experiência"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -729,14 +730,14 @@ function App() {
 
   const renderEducationFields = () => {
     return formData.formacoes.map((form, idx) => (
-      <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm">
+      <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.tipoFormacao}</label>
             <select
               value={form.tipo}
               onChange={(e) => handleArrayChange("formacoes", idx, "tipo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             >
               {tiposCurso.map(tipo => (
                 <option key={tipo.valor} value={tipo.valor}>{tipo.label}</option>
@@ -749,7 +750,7 @@ function App() {
               type="text"
               value={form.curso}
               onChange={(e) => handleArrayChange("formacoes", idx, "curso", e.target.value)}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black ${
+              className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                 errors[`formacao_curso_${idx}`] ? "border-red-500" : ""
               }`}
               placeholder={t.placeholders.curso}
@@ -767,7 +768,7 @@ function App() {
               type="text"
               value={form.instituicao}
               onChange={(e) => handleArrayChange("formacoes", idx, "instituicao", e.target.value)}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black ${
+              className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                 errors[`formacao_instituicao_${idx}`] ? "border-red-500" : ""
               }`}
               placeholder={t.placeholders.instituicao}
@@ -782,31 +783,31 @@ function App() {
               type="text"
               value={form.periodo}
               onChange={(e) => handleArrayChange("formacoes", idx, "periodo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.periodo}
-            />
-          </div>
-        </div>
-        
-        {formData.formacoes.length > 1 && (
-          <button
-            type="button"
-            onClick={() => removeField("formacoes", idx)}
-            className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors"
-            title="Remover formação"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-</svg>
-</button>
-)}
-</div>
+            />       </div>
+    </div>
+    
+    {formData.formacoes.length > 1 && (
+      <button
+        type="button"
+        onClick={() => removeField("formacoes", idx)}
+        className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
+        title="Remover formação"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+        </svg>
+      </button>
+    )}
+  </div>
 ));
+
 };
 
 const renderLanguageFields = () => {
 return formData.idiomas.map((idioma, idx) => (
-<div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm">
+<div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div>
 <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.idioma}</label>
@@ -814,7 +815,7 @@ return formData.idiomas.map((idioma, idx) => (
 type="text"
 value={idioma.idioma}
 onChange={(e) => handleArrayChange("idiomas", idx, "idioma", e.target.value)}
-className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
 placeholder={t.placeholders.idioma}
 />
 </div>
@@ -823,7 +824,7 @@ placeholder={t.placeholders.idioma}
 <select
 value={idioma.nivel}
 onChange={(e) => handleArrayChange("idiomas", idx, "nivel", e.target.value)}
-className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
 >
 <option value="">{t.campos.nivel}</option>
 {t.niveisIdioma.map((nivel, i) => (
@@ -837,7 +838,7 @@ className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-
       <button
         type="button"
         onClick={() => removeField("idiomas", idx)}
-        className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors"
+        className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
         title="Remover idioma"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -851,63 +852,127 @@ className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-
 };
 
 return (
-<div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6">
-<div className="max-w-5xl mx-auto">
-<div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8 border border-gray-200">
-{/* Cabeçalho minimalista */}
-<div className="bg-black p-8 text-white">
-<div className="flex justify-between items-start">
-<div>
-<h1 className="text-3xl font-bold">{t.tituloApp}</h1>
-<p className="mt-2 opacity-90">{t.subtituloApp}</p>
-</div>
-<div className="relative">
+<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6">
+<div className="max-w-6xl mx-auto">
+<div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-200">
+{/* Cabeçalho moderno */}
+<div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white relative">
+<div className="absolute top-4 right-4">
 <select
 value={idiomaApp}
 onChange={(e) => setIdiomaApp(e.target.value)}
-className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-white"
+className="bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-white transition-all"
 >
 {idiomasApp.map((idioma) => (
-<option key={idioma.codigo} value={idioma.codigo}>
-{idioma.nome}
+<option key={idioma.codigo} value={idioma.codigo} className="text-gray-800">
+{idioma.icone} {idioma.nome}
 </option>
 ))}
 </select>
 </div>
-</div>
-</div>
 
-      {/* Dicas ATS */}
-      <div className="p-6 bg-gray-100 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-900 mb-3">
-          {t.dicasATS}
-        </h2>
-        <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
-          {t.dicasLista.map((dica, index) => (
-            <li key={index}>{dica}</li>
-          ))}
-        </ul>
+        <div className="max-w-3xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{t.tituloApp}</h1>
+          <p className="text-blue-100 text-lg">{t.subtituloApp}</p>
+          
+          <div className="mt-6 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+            <h2 className="text-lg font-semibold mb-2 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+              </svg>
+              {t.dicasATS}
+            </h2>
+            <ul className="list-disc pl-5 text-sm text-blue-100 space-y-1">
+              {t.dicasLista.map((dica, index) => (
+                <li key={index}>{dica}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
       
+      {/* Navegação por seções */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="flex overflow-x-auto px-4 hide-scrollbar">
+          <button
+            onClick={() => setActiveSection("info")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "info" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.nome.split("*")[0]}
+          </button>
+          <button
+            onClick={() => setActiveSection("resumo")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "resumo" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.resumo.split("*")[0]}
+          </button>
+          <button
+            onClick={() => setActiveSection("experiencia")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "experiencia" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.experiencia}
+          </button>
+          <button
+            onClick={() => setActiveSection("formacao")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "formacao" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.formacao}
+          </button>
+          <button
+            onClick={() => setActiveSection("habilidades")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "habilidades" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.habilidades}
+          </button>
+          <button
+            onClick={() => setActiveSection("idiomas")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "idiomas" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.idiomas}
+          </button>
+          <button
+            onClick={() => setActiveSection("certificacoes")}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
+              activeSection === "certificacoes" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {t.campos.certificacoes}
+          </button>
+        </div>
+      </div>
+
       <form onSubmit={(e) => { e.preventDefault(); gerarPDF(); }} className="p-6 space-y-8">
         {successMessage && (
-          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded">
-            <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <p>{successMessage}</p>
-            </div>
+          <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <p>{successMessage}</p>
           </div>
         )}
         
         {/* Seção de Informações Pessoais */}
-        <div className="border-b border-gray-200 pb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        <div className={`space-y-6 ${activeSection !== "info" && "hidden"}`}>
+          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
             {t.campos.nome.split("*")[0]}
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.nome}</label>
               <input
@@ -915,7 +980,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="nome"
                 value={formData.nome}
                 onChange={handleChange}
-                className={`w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black ${
+                className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                   errors.nome ? "border-red-500" : ""
                 }`}
                 placeholder={t.placeholders.nome}
@@ -930,21 +995,21 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="cargoDesejado"
                 value={formData.cargoDesejado}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 placeholder={t.placeholders.cargoDesejado}
               />
             </div>
           </div>
           
           {/* Telefone com DDD e código do país */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.codigoPais}</label>
               <select
                 name="codigoPais"
                 value={formData.codigoPais}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               >
                 {paisesTelefone.map(pais => (
                   <option key={pais.codigo} value={pais.codigo}>{pais.nome}</option>
@@ -959,7 +1024,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="ddd"
                 value={formData.ddd}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 placeholder={t.placeholders.ddd}
                 maxLength="2"
               />
@@ -972,14 +1037,14 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="telefone"
                 value={formData.telefone}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 placeholder={t.placeholders.telefone}
               />
             </div>
           </div>
           
           {/* Cidade, LinkedIn e Portfolio */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.cidade}</label>
               <input
@@ -987,7 +1052,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="cidade"
                 value={formData.cidade}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 placeholder={t.placeholders.cidade}
               />
             </div>
@@ -995,7 +1060,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.linkedin}</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">
+                <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">
                   linkedin.com/in/
                 </span>
                 <input
@@ -1003,7 +1068,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                   name="linkedin"
                   value={formData.linkedin}
                   onChange={handleChange}
-                  className="flex-1 min-w-0 block w-full p-3 rounded-none rounded-r-md border border-gray-300 focus:ring-2 focus:ring-black focus:border-black"
+                  className="flex-1 min-w-0 block w-full p-3 rounded-none rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder={t.placeholders.linkedin}
                 />
               </div>
@@ -1016,20 +1081,20 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 name="portfolio"
                 value={formData.portfolio}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 placeholder={t.placeholders.portfolio}
               />
             </div>
           </div>
           
-          <div className="mt-6">
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.email}</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black ${
+              className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                 errors.email ? "border-red-500" : ""
               }`}
               placeholder={t.placeholders.email}
@@ -1039,34 +1104,40 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
         </div>
         
         {/* Resumo Profissional */}
-        <div className="border-b border-gray-200 pb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        <div className={`space-y-6 ${activeSection !== "resumo" && "hidden"}`}>
+          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
             {t.campos.resumo}
           </h2>
           <textarea
             name="resumo"
             value={formData.resumo}
             onChange={handleChange}
-            className={`w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black ${
+            className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
               errors.resumo ? "border-red-500" : ""
             }`}
             rows={5}
             placeholder={t.placeholders.resumo}
           />
           {errors.resumo && <p className="text-red-500 text-xs mt-2">{errors.resumo}</p>}
-          <p className="text-xs text-gray-500 mt-3">{t.placeholders.resumo.split(":")[0]}</p>
+          <p className="text-xs text-gray-500">{t.placeholders.resumo.split(":")[0]}</p>
         </div>
         
-        {/* Experiência Profissional (opcional) */}
-        <div className="border-b border-gray-200 pb-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800">
+        {/* Experiência Profissional */}
+        <div className={`space-y-6 ${activeSection !== "experiencia" && "hidden"}`}>
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
               {t.campos.experiencia}
             </h2>
             <button
               type="button"
               onClick={() => addField("experiencias", { cargo: "", empresa: "", periodo: "", tecnologias: "", atividades: "", resultados: "" })}
-              className="flex items-center text-black hover:text-white hover:bg-black text-sm font-medium border border-black px-4 py-2 rounded-md transition-colors"
+              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
@@ -1078,20 +1149,30 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
           {formData.experiencias.length > 0 ? (
             renderExperienceFields()
           ) : (
-            <p className="text-sm text-gray-500 italic">{t.mensagens.nenhumaExperiencia}</p>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              </svg>
+              <p className="mt-2 text-gray-500">{t.mensagens.nenhumaExperiencia}</p>
+            </div>
           )}
         </div>
         
         {/* Formação Acadêmica */}
-        <div className="border-b border-gray-200 pb-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800">
+        <div className={`space-y-6 ${activeSection !== "formacao" && "hidden"}`}>
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+              </svg>
               {t.campos.formacao}
             </h2>
             <button
               type="button"
               onClick={() => addField("formacoes", { tipo: "superior", curso: "", instituicao: "", periodo: "" })}
-              className="flex items-center text-black hover:text-white hover:bg-black text-sm font-medium border border-black px-4 py-2 rounded-md transition-colors"
+              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
@@ -1104,20 +1185,24 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
         </div>
         
         {/* Habilidades Técnicas */}
-        <div className="border-b border-gray-200 pb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+        <div className={`space-y-6 ${activeSection !== "habilidades" && "hidden"}`}>
+          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
             {t.campos.habilidades}
           </h2>
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.placeholders.habilidades.split(":")[0]}</label>
             <input
               type="text"
               value={habilidadesInput}
               onChange={handleHabilidadesChange}
-              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.habilidades}
             />
-            <p className="text-xs text-gray-500 mt-3">{t.placeholders.habilidades.split(":")[0]}</p>
+            <p className="text-xs text-gray-500 mt-2">{t.placeholders.habilidades.split(":")[0]}</p>
             
             {/* Preview das habilidades */}
             {formData.habilidades.length > 0 && (
@@ -1125,7 +1210,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 <p className="text-sm font-medium text-gray-700 mb-2">Pré-visualização:</p>
                 <div className="flex flex-wrap gap-2">
                   {formData.habilidades.map((skill, idx) => (
-                    <span key={idx} className="bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-full">
+                    <span key={idx} className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
                       {skill}
                     </span>
                   ))}
@@ -1136,15 +1221,18 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
         </div>
         
         {/* Idiomas */}
-        <div className="border-b border-gray-200 pb-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800">
+        <div className={`space-y-6 ${activeSection !== "idiomas" && "hidden"}`}>
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
               {t.campos.idiomas}
             </h2>
             <button
               type="button"
               onClick={() => addField("idiomas", { idioma: "", nivel: "" })}
-              className="flex items-center text-black hover:text-white hover:bg-black text-sm font-medium border border-black px-4 py-2 rounded-md transition-colors"
+              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
@@ -1156,20 +1244,28 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
           {formData.idiomas.length > 0 ? (
             renderLanguageFields()
           ) : (
-            <p className="text-sm text-gray-500 italic">{t.mensagens.nenhumIdioma}</p>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+              <p className="mt-2 text-gray-500">{t.mensagens.nenhumIdioma}</p>
+            </div>
           )}
         </div>
         
-        {/* Certificações (opcional) */}
-        <div className="pb-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800">
+        {/* Certificações */}
+        <div className={`space-y-6 ${activeSection !== "certificacoes" && "hidden"}`}>
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
               {t.campos.certificacoes}
             </h2>
             <button
               type="button"
               onClick={() => addField("certificacoes", "")}
-              className="flex items-center text-black hover:text-white hover:bg-black text-sm font-medium border border-black px-4 py-2 rounded-md transition-colors"
+              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
@@ -1180,7 +1276,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
           
           {formData.certificacoes.length > 0 ? (
             formData.certificacoes.map((cert, idx) => (
-              <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm">
+              <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.certificacao}</label>
                   <input
@@ -1191,7 +1287,7 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                       newCerts[idx] = e.target.value;
                       setFormData(prev => ({ ...prev, certificacoes: newCerts }));
                     }}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                     placeholder={t.placeholders.certificacao}
                   />
                 </div>
@@ -1199,57 +1295,103 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
                 <button
                   type="button"
                   onClick={() => removeField("certificacoes", idx)}
-                  className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors"
+                  className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
                   title="Remover certificação"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-            ))
-          ) : (
-            <p className="text-sm text-gray-500 italic">{t.mensagens.nenhumaCertificacao}</p>
-          )}
-        </div>
-        
-        {/* Botão de envio */}
-        <div className="flex justify-center">
+                    <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 0120v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+</svg>
+</button>
+</div>
+))
+) : (
+<div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+<svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+</svg>
+<p className="mt-2 text-gray-500">{t.mensagens.nenhumaCertificacao}</p>
+</div>
+)}
+</div>
+
+        {/* Navegação entre seções */}
+        <div className="flex justify-between pt-6 border-t border-gray-200">
           <button
-            type="submit"
-            disabled={isGenerating}
-            className={`px-10 py-4 rounded-lg text-white font-medium text-lg flex items-center transition-all ${
-              isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800 shadow-md hover:shadow-lg"
+            type="button"
+            onClick={() => {
+              const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
+              const currentIndex = sections.indexOf(activeSection);
+              if (currentIndex > 0) {
+                setActiveSection(sections[currentIndex - 1]);
+              }
+            }}
+            disabled={activeSection === "info"}
+            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+              activeSection === "info" ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:bg-blue-50"
             }`}
           >
-            {isGenerating ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                {t.mensagens.gerando}
-              </>
-            ) : (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                {t.botoes.gerarCV}
-              </>
-            )}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            Anterior
           </button>
+          
+          {activeSection !== "certificacoes" ? (
+            <button
+              type="button"
+              onClick={() => {
+                const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
+                const currentIndex = sections.indexOf(activeSection);
+                if (currentIndex < sections.length - 1) {
+                  setActiveSection(sections[currentIndex + 1]);
+                }
+              }}
+              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              Próximo
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          ) : (
+            <button
+              type="submit"
+              disabled={isGenerating}
+              className={`px-6 py-3 rounded-lg text-white font-medium flex items-center transition-all ${
+                isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
+              }`}
+            >
+              {isGenerating ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {t.mensagens.gerando}
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  {t.botoes.gerarCV}
+                </>
+              )}
+            </button>
+          )}
         </div>
+      </form>
 
-        {/* Footer adicionado */}
-        <footer className="max-w-5xl mx-auto w-full py-6">
-          <div className="flex flex-col items-center justify-center space-y-2">
-            <div className="flex space-x-4">
+      {/* Footer moderno */}
+      <footer className="bg-gray-50 px-6 py-6 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-4 mb-4 md:mb-0">
               <a 
                 href="https://github.com/codedgabriel/ats-curriculo" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-black transition-colors"
+                className="text-gray-500 hover:text-gray-700 transition-colors"
                 aria-label="GitHub do projeto"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -1269,11 +1411,11 @@ className="bg-black text-white border border-gray-400 rounded-md px-3 py-1 text-
               </a>
             </div>
             <p className="text-sm text-gray-500">
-              Criado por <span className="font-medium">D. Gabriel</span>
+              Criado por <span className="font-medium text-gray-700">D. Gabriel</span> - {new Date().getFullYear()}
             </p>
           </div>
-        </footer>
-      </form>
+        </div>
+      </footer>
     </div>
   </div>
 </div>
