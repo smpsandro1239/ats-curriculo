@@ -642,15 +642,15 @@ function App() {
 
   const renderExperienceFields = () => {
     return formData.experiencias.map((exp, idx) => (
-      <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+      <div key={idx} className="mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-md border border-gray-100 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.cargo}</label>
             <input
               type="text"
               value={exp.cargo}
               onChange={(e) => handleArrayChange("experiencias", idx, "cargo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.cargo}
             />
           </div>
@@ -660,35 +660,33 @@ function App() {
               type="text"
               value={exp.empresa}
               onChange={(e) => handleArrayChange("experiencias", idx, "empresa", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.empresa}
             />
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.periodo}</label>
             <input
               type="text"
               value={exp.periodo}
               onChange={(e) => handleArrayChange("experiencias", idx, "periodo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.periodo}
             />
           </div>
-        </div>
-        
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.tecnologias}</label>
-          <input
-            type="text"
-            value={exp.tecnologias}
-            onChange={(e) => handleArrayChange("experiencias", idx, "tecnologias", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-            placeholder={t.placeholders.tecnologias}
-          />
-          <p className="text-xs text-gray-500 mt-2">{t.placeholders.tecnologias.split(":")[0]}</p>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.tecnologias}</label>
+            <input
+              type="text"
+              value={exp.tecnologias}
+              onChange={(e) => handleArrayChange("experiencias", idx, "tecnologias", e.target.value)}
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              placeholder={t.placeholders.tecnologias}
+            />
+          </div>
         </div>
         
         <div className="mb-4">
@@ -696,7 +694,7 @@ function App() {
           <textarea
             value={exp.atividades}
             onChange={(e) => handleArrayChange("experiencias", idx, "atividades", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             rows={3}
             placeholder={t.placeholders.atividades}
           />
@@ -707,20 +705,19 @@ function App() {
           <textarea
             value={exp.resultados}
             onChange={(e) => handleArrayChange("experiencias", idx, "resultados", e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             rows={3}
             placeholder={t.placeholders.resultados}
           />
-          <p className="text-xs text-gray-500 mt-2">{t.placeholders.resultados.split(":")[0]}</p>
         </div>
         
         <button
           type="button"
           onClick={() => removeField("experiencias", idx)}
-          className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-red-500 transition-colors"
           title="Remover experiência"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
           </svg>
         </button>
@@ -730,14 +727,14 @@ function App() {
 
   const renderEducationFields = () => {
     return formData.formacoes.map((form, idx) => (
-      <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+      <div key={idx} className="mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-md border border-gray-100 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.tipoFormacao}</label>
             <select
               value={form.tipo}
               onChange={(e) => handleArrayChange("formacoes", idx, "tipo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             >
               {tiposCurso.map(tipo => (
                 <option key={tipo.valor} value={tipo.valor}>{tipo.label}</option>
@@ -750,7 +747,7 @@ function App() {
               type="text"
               value={form.curso}
               onChange={(e) => handleArrayChange("formacoes", idx, "curso", e.target.value)}
-              className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+              className={`w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                 errors[`formacao_curso_${idx}`] ? "border-red-500" : ""
               }`}
               placeholder={t.placeholders.curso}
@@ -761,14 +758,14 @@ function App() {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.instituicao}</label>
             <input
               type="text"
               value={form.instituicao}
               onChange={(e) => handleArrayChange("formacoes", idx, "instituicao", e.target.value)}
-              className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+              className={`w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                 errors[`formacao_instituicao_${idx}`] ? "border-red-500" : ""
               }`}
               placeholder={t.placeholders.instituicao}
@@ -783,179 +780,171 @@ function App() {
               type="text"
               value={form.periodo}
               onChange={(e) => handleArrayChange("formacoes", idx, "periodo", e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder={t.placeholders.periodo}
-            />       </div>
-    </div>
-    
-    {formData.formacoes.length > 1 && (
-      <button
-        type="button"
-        onClick={() => removeField("formacoes", idx)}
-        className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
-        title="Remover formação"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-        </svg>
-      </button>
-    )}
-  </div>
-));
+            />
+          </div>
+        </div>
+        
+        {formData.formacoes.length > 1 && (
+          <button
+            type="button"
+            onClick={() => removeField("formacoes", idx)}
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-red-500 transition-colors"
+            title="Remover formação"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+          </button>
+        )}
+      </div>
+    ));
+  };
 
-};
+  const renderLanguageFields = () => {
+    return formData.idiomas.map((idioma, idx) => (
+      <div key={idx} className="mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-md border border-gray-100 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.idioma}</label>
+            <input
+              type="text"
+              value={idioma.idioma}
+              onChange={(e) => handleArrayChange("idiomas", idx, "idioma", e.target.value)}
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              placeholder={t.placeholders.idioma}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.nivel}</label>
+            <select
+              value={idioma.nivel}
+              onChange={(e) => handleArrayChange("idiomas", idx, "nivel", e.target.value)}
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            >
+              <option value="">{t.campos.nivel}</option>
+              {t.niveisIdioma.map((nivel, i) => (
+                <option key={i} value={nivel}>{nivel}</option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-const renderLanguageFields = () => {
-return formData.idiomas.map((idioma, idx) => (
-<div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.idioma}</label>
-<input
-type="text"
-value={idioma.idioma}
-onChange={(e) => handleArrayChange("idiomas", idx, "idioma", e.target.value)}
-className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-placeholder={t.placeholders.idioma}
-/>
-</div>
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.nivel}</label>
-<select
-value={idioma.nivel}
-onChange={(e) => handleArrayChange("idiomas", idx, "nivel", e.target.value)}
-className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
->
-<option value="">{t.campos.nivel}</option>
-{t.niveisIdioma.map((nivel, i) => (
-<option key={i} value={nivel}>{nivel}</option>
-))}
-</select>
-</div>
-</div>
+        {formData.idiomas.length > 1 && (
+          <button
+            type="button"
+            onClick={() => removeField("idiomas", idx)}
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-red-500 transition-colors"
+            title="Remover idioma"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+          </button>
+        )}
+      </div>
+    ));
+  };
 
-    {formData.idiomas.length > 1 && (
-      <button
-        type="button"
-        onClick={() => removeField("idiomas", idx)}
-        className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
-        title="Remover idioma"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-        </svg>
-      </button>
-    )}
-  </div>
-));
-
-};
-
-return (
-<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6">
-<div className="max-w-6xl mx-auto">
-<div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-200">
-{/* Cabeçalho moderno */}
-<div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white relative">
-<div className="absolute top-4 right-4">
-<select
-value={idiomaApp}
-onChange={(e) => setIdiomaApp(e.target.value)}
-className="bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-full px-4 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-white transition-all"
->
-{idiomasApp.map((idioma) => (
-<option key={idioma.codigo} value={idioma.codigo} className="text-gray-800">
-{idioma.icone} {idioma.nome}
-</option>
-))}
-</select>
-</div>
-
-        <div className="max-w-3xl">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{t.tituloApp}</h1>
-          <p className="text-blue-100 text-lg">{t.subtituloApp}</p>
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header moderno */}
+      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold">{t.tituloApp}</h1>
+              <p className="text-blue-100 mt-1 sm:mt-2 text-sm sm:text-base">{t.subtituloApp}</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+              <select
+                value={idiomaApp}
+                onChange={(e) => setIdiomaApp(e.target.value)}
+                className="bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white transition-all"
+              >
+                {idiomasApp.map((idioma) => (
+                  <option key={idioma.codigo} value={idioma.codigo} className="text-gray-800">
+                    {idioma.icone} {idioma.nome}
+                  </option>
+                ))}
+              </select>
+              
+              <button
+                onClick={() => gerarPDF()}
+                disabled={isGenerating}
+                className={`px-4 sm:px-6 py-2 rounded-full text-white font-medium flex items-center justify-center transition-all ${
+                  isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 shadow-md hover:shadow-lg"
+                }`}
+              >
+                {isGenerating ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span className="text-sm sm:text-base">{t.mensagens.gerando}</span>
+                  </>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span className="text-sm sm:text-base">{t.botoes.gerarCV}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
           
-          <div className="mt-6 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-            <h2 className="text-lg font-semibold mb-2 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+          <div className="mt-6 sm:mt-8 bg-white/10 backdrop-blur-sm p-3 sm:p-4 rounded-lg max-w-3xl">
+            <h2 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
               </svg>
               {t.dicasATS}
             </h2>
-            <ul className="list-disc pl-5 text-sm text-blue-100 space-y-1">
+            <ul className="list-disc pl-5 text-xs sm:text-sm text-blue-100 space-y-1">
               {t.dicasLista.map((dica, index) => (
                 <li key={index}>{dica}</li>
               ))}
             </ul>
           </div>
         </div>
-      </div>
-      
+      </header>
+
       {/* Navegação por seções */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="flex overflow-x-auto px-4 hide-scrollbar">
-          <button
-            onClick={() => setActiveSection("info")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "info" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.nome.split("*")[0]}
-          </button>
-          <button
-            onClick={() => setActiveSection("resumo")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "resumo" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.resumo.split("*")[0]}
-          </button>
-          <button
-            onClick={() => setActiveSection("experiencia")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "experiencia" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.experiencia}
-          </button>
-          <button
-            onClick={() => setActiveSection("formacao")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "formacao" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.formacao}
-          </button>
-          <button
-            onClick={() => setActiveSection("habilidades")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "habilidades" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.habilidades}
-          </button>
-          <button
-            onClick={() => setActiveSection("idiomas")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "idiomas" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.idiomas}
-          </button>
-          <button
-            onClick={() => setActiveSection("certificacoes")}
-            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition-colors ${
-              activeSection === "certificacoes" ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.campos.certificacoes}
-          </button>
+      <div className="bg-white shadow-sm sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 overflow-x-auto">
+          <div className="flex">
+            {[
+              { id: "info", label: t.campos.nome.split("*")[0] },
+              { id: "resumo", label: t.campos.resumo.split("*")[0] },
+              { id: "experiencia", label: t.campos.experiencia },
+              { id: "formacao", label: t.campos.formacao },
+              { id: "habilidades", label: t.campos.habilidades },
+              { id: "idiomas", label: t.campos.idiomas },
+              { id: "certificacoes", label: t.campos.certificacoes }
+            ].map((section) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={`px-3 py-3 font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 transition-colors ${
+                  activeSection === section.id ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700"
+                }`}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <form onSubmit={(e) => { e.preventDefault(); gerarPDF(); }} className="p-6 space-y-8">
+      {/* Conteúdo principal */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {successMessage && (
-          <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg flex items-center">
+          <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg flex items-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
@@ -963,461 +952,460 @@ className="bg-white/20 backdrop-blur-sm text-white border border-white/30 rounde
           </div>
         )}
         
-        {/* Seção de Informações Pessoais */}
-        <div className={`space-y-6 ${activeSection !== "info" && "hidden"}`}>
-          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            {t.campos.nome.split("*")[0]}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.nome}</label>
-              <input
-                type="text"
-                name="nome"
-                value={formData.nome}
-                onChange={handleChange}
-                className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                  errors.nome ? "border-red-500" : ""
-                }`}
-                placeholder={t.placeholders.nome}
-              />
-              {errors.nome && <p className="text-red-500 text-xs mt-2">{errors.nome}</p>}
-            </div>
+        <form onSubmit={(e) => { e.preventDefault(); gerarPDF(); }} className="space-y-6 sm:space-y-8">
+          {/* Seção de Informações Pessoais */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "info" && "hidden"}`}>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              {t.campos.nome.split("*")[0]}
+            </h2>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.cargoDesejado}</label>
-              <input
-                type="text"
-                name="cargoDesejado"
-                value={formData.cargoDesejado}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                placeholder={t.placeholders.cargoDesejado}
-              />
-            </div>
-          </div>
-          
-          {/* Telefone com DDD e código do país */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.codigoPais}</label>
-              <select
-                name="codigoPais"
-                value={formData.codigoPais}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              >
-                {paisesTelefone.map(pais => (
-                  <option key={pais.codigo} value={pais.codigo}>{pais.nome}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.ddd}</label>
-              <input
-                type="text"
-                name="ddd"
-                value={formData.ddd}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                placeholder={t.placeholders.ddd}
-                maxLength="2"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.telefone}</label>
-              <input
-                type="tel"
-                name="telefone"
-                value={formData.telefone}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                placeholder={t.placeholders.telefone}
-              />
-            </div>
-          </div>
-          
-          {/* Cidade, LinkedIn e Portfolio */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.cidade}</label>
-              <input
-                type="text"
-                name="cidade"
-                value={formData.cidade}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                placeholder={t.placeholders.cidade}
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.linkedin}</label>
-              <div className="flex">
-                <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-sm">
-                  linkedin.com/in/
-                </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.nome}</label>
                 <input
                   type="text"
-                  name="linkedin"
-                  value={formData.linkedin}
+                  name="nome"
+                  value={formData.nome}
                   onChange={handleChange}
-                  className="flex-1 min-w-0 block w-full p-3 rounded-none rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  placeholder={t.placeholders.linkedin}
+                  className={`w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                    errors.nome ? "border-red-500" : ""
+                  }`}
+                  placeholder={t.placeholders.nome}
+                />
+                {errors.nome && <p className="text-red-500 text-xs mt-1 sm:mt-2">{errors.nome}</p>}
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.cargoDesejado}</label>
+                <input
+                  type="text"
+                  name="cargoDesejado"
+                  value={formData.cargoDesejado}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.cargoDesejado}
+                />
+              </div>
+            </div>
+            
+            {/* Telefone com DDD e código do país */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.codigoPais}</label>
+                <select
+                  name="codigoPais"
+                  value={formData.codigoPais}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                >
+                  {paisesTelefone.map(pais => (
+                    <option key={pais.codigo} value={pais.codigo}>{pais.nome}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.ddd}</label>
+                <input
+                  type="text"
+                  name="ddd"
+                  value={formData.ddd}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.ddd}
+                  maxLength="2"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.telefone}</label>
+                <input
+                  type="tel"
+                  name="telefone"
+                  value={formData.telefone}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.telefone}
+                />
+              </div>
+            </div>
+            
+            {/* Cidade, LinkedIn e Portfolio */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.cidade}</label>
+                <input
+                  type="text"
+                  name="cidade"
+                  value={formData.cidade}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.cidade}
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.linkedin}</label>
+                <div className="flex">
+                  <span className="inline-flex items-center px-2 sm:px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-500 text-xs sm:text-sm">
+                    linkedin.com/in/
+                  </span>
+                  <input
+                    type="text"
+                    name="linkedin"
+                    value={formData.linkedin}
+                    onChange={handleChange}
+                    className="flex-1 min-w-0 block w-full p-2 sm:p-3 rounded-none rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    placeholder={t.placeholders.linkedin}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.portfolio}</label>
+                <input
+                  type="text"
+                  name="portfolio"
+                  value={formData.portfolio}
+                  onChange={handleChange}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.portfolio}
                 />
               </div>
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.portfolio}</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.email}</label>
               <input
-                type="text"
-                name="portfolio"
-                value={formData.portfolio}
+                type="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                placeholder={t.placeholders.portfolio}
+                className={`w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                  errors.email ? "border-red-500" : ""
+                }`}
+                placeholder={t.placeholders.email}
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1 sm:mt-2">{errors.email}</p>}
             </div>
           </div>
           
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.email}</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
+          {/* Resumo Profissional */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "resumo" && "hidden"}`}>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              {t.campos.resumo}
+            </h2>
+            <textarea
+              name="resumo"
+              value={formData.resumo}
               onChange={handleChange}
               className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-                errors.email ? "border-red-500" : ""
+                errors.resumo ? "border-red-500" : ""
               }`}
-              placeholder={t.placeholders.email}
+              rows={5}
+              placeholder={t.placeholders.resumo}
             />
-            {errors.email && <p className="text-red-500 text-xs mt-2">{errors.email}</p>}
-          </div>
-        </div>
-        
-        {/* Resumo Profissional */}
-        <div className={`space-y-6 ${activeSection !== "resumo" && "hidden"}`}>
-          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            {t.campos.resumo}
-          </h2>
-          <textarea
-            name="resumo"
-            value={formData.resumo}
-            onChange={handleChange}
-            className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-              errors.resumo ? "border-red-500" : ""
-            }`}
-            rows={5}
-            placeholder={t.placeholders.resumo}
-          />
-          {errors.resumo && <p className="text-red-500 text-xs mt-2">{errors.resumo}</p>}
-          <p className="text-xs text-gray-500">{t.placeholders.resumo.split(":")[0]}</p>
-        </div>
-        
-        {/* Experiência Profissional */}
-        <div className={`space-y-6 ${activeSection !== "experiencia" && "hidden"}`}>
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              {t.campos.experiencia}
-            </h2>
-            <button
-              type="button"
-              onClick={() => addField("experiencias", { cargo: "", empresa: "", periodo: "", tecnologias: "", atividades: "", resultados: "" })}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-              {t.botoes.adicionarExperiencia}
-            </button>
+            {errors.resumo && <p className="text-red-500 text-xs mt-1 sm:mt-2">{errors.resumo}</p>}
+            <p className="text-xs text-gray-500">{t.placeholders.resumo.split(":")[0]}</p>
           </div>
           
-          {formData.experiencias.length > 0 ? (
-            renderExperienceFields()
-          ) : (
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-              </svg>
-              <p className="mt-2 text-gray-500">{t.mensagens.nenhumaExperiencia}</p>
+          {/* Experiência Profissional */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "experiencia" && "hidden"}`}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                {t.campos.experiencia}
+              </h2>
+              <button
+                type="button"
+                onClick={() => addField("experiencias", { cargo: "", empresa: "", periodo: "", tecnologias: "", atividades: "", resultados: "" })}
+                className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                </svg>
+                {t.botoes.adicionarExperiencia}
+              </button>
             </div>
-          )}
-        </div>
-        
-        {/* Formação Acadêmica */}
-        <div className={`space-y-6 ${activeSection !== "formacao" && "hidden"}`}>
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-              </svg>
-              {t.campos.formacao}
-            </h2>
-            <button
-              type="button"
-              onClick={() => addField("formacoes", { tipo: "superior", curso: "", instituicao: "", periodo: "" })}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-              {t.botoes.adicionarFormacao}
-            </button>
-          </div>
-          
-          {renderEducationFields()}
-        </div>
-        
-        {/* Habilidades Técnicas */}
-        <div className={`space-y-6 ${activeSection !== "habilidades" && "hidden"}`}>
-          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-            {t.campos.habilidades}
-          </h2>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t.placeholders.habilidades.split(":")[0]}</label>
-            <input
-              type="text"
-              value={habilidadesInput}
-              onChange={handleHabilidadesChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              placeholder={t.placeholders.habilidades}
-            />
-            <p className="text-xs text-gray-500 mt-2">{t.placeholders.habilidades.split(":")[0]}</p>
             
-            {/* Preview das habilidades */}
-            {formData.habilidades.length > 0 && (
-              <div className="mt-4">
-                <p className="text-sm font-medium text-gray-700 mb-2">Pré-visualização:</p>
-                <div className="flex flex-wrap gap-2">
-                  {formData.habilidades.map((skill, idx) => (
-                    <span key={idx} className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+            {formData.experiencias.length > 0 ? (
+              renderExperienceFields()
+            ) : (
+              <div className="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                <p className="mt-2 text-sm text-gray-500">{t.mensagens.nenhumaExperiencia}</p>
               </div>
             )}
           </div>
-        </div>
-        
-        {/* Idiomas */}
-        <div className={`space-y-6 ${activeSection !== "idiomas" && "hidden"}`}>
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-              </svg>
-              {t.campos.idiomas}
-            </h2>
-            <button
-              type="button"
-              onClick={() => addField("idiomas", { idioma: "", nivel: "" })}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-              {t.botoes.adicionarIdioma}
-            </button>
-          </div>
           
-          {formData.idiomas.length > 0 ? (
-            renderLanguageFields()
-          ) : (
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-              </svg>
-              <p className="mt-2 text-gray-500">{t.mensagens.nenhumIdioma}</p>
+          {/* Formação Acadêmica */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "formacao" && "hidden"}`}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                </svg>
+                {t.campos.formacao}
+              </h2>
+              <button
+                type="button"
+                onClick={() => addField("formacoes", { tipo: "superior", curso: "", instituicao: "", periodo: "" })}
+                className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                </svg>
+                {t.botoes.adicionarFormacao}
+              </button>
             </div>
-          )}
-        </div>
-        
-        {/* Certificações */}
-        <div className={`space-y-6 ${activeSection !== "certificacoes" && "hidden"}`}>
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              {t.campos.certificacoes}
-            </h2>
-            <button
-              type="button"
-              onClick={() => addField("certificacoes", "")}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-              {t.botoes.adicionarCertificacao}
-            </button>
+            
+            {renderEducationFields()}
           </div>
           
-          {formData.certificacoes.length > 0 ? (
-            formData.certificacoes.map((cert, idx) => (
-              <div key={idx} className="mb-6 p-6 border border-gray-200 rounded-lg relative bg-white shadow-sm transition-all hover:shadow-md">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t.campos.certificacao}</label>
-                  <input
-                    type="text"
-                    value={cert}
-                    onChange={(e) => {
-                      const newCerts = [...formData.certificacoes];
-                      newCerts[idx] = e.target.value;
-                      setFormData(prev => ({ ...prev, certificacoes: newCerts }));
-                    }}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder={t.placeholders.certificacao}
-                  />
+          {/* Habilidades Técnicas */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "habilidades" && "hidden"}`}>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+              {t.campos.habilidades}
+            </h2>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.placeholders.habilidades.split(":")[0]}</label>
+              <input
+                type="text"
+                value={habilidadesInput}
+                onChange={handleHabilidadesChange}
+                className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                placeholder={t.placeholders.habilidades}
+              />
+              <p className="text-xs text-gray-500 mt-1 sm:mt-2">{t.placeholders.habilidades.split(":")[0]}</p>
+              
+              {/* Preview das habilidades */}
+              {formData.habilidades.length > 0 && (
+                <div className="mt-3 sm:mt-4">
+                  <p className="text-sm font-medium text-gray-700 mb-1 sm:mb-2">Pré-visualização:</p>
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
+                    {formData.habilidades.map((skill, idx) => (
+                      <span key={idx} className="bg-blue-100 text-blue-800 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                
-                <button
-                  type="button"
-                  onClick={() => removeField("certificacoes", idx)}
-                  className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-colors"
-                  title="Remover certificação"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 0120v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-</svg>
-</button>
-</div>
-))
-) : (
-<div className="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
-<svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-</svg>
-<p className="mt-2 text-gray-500">{t.mensagens.nenhumaCertificacao}</p>
-</div>
-)}
-</div>
+              )}
+            </div>
+          </div>
+          
+          {/* Idiomas */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "idiomas" && "hidden"}`}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                {t.campos.idiomas}
+              </h2>
+              <button
+                type="button"
+                onClick={() => addField("idiomas", { idioma: "", nivel: "" })}
+                className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                </svg>
+                {t.botoes.adicionarIdioma}
+              </button>
+            </div>
+            
+            {formData.idiomas.length > 0 ? (
+              renderLanguageFields()
+            ) : (
+              <div className="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                <p className="mt-2 text-sm text-gray-500">{t.mensagens.nenhumIdioma}</p>
+              </div>
+            )}
+          </div>
+          
+          {/* Certificações */}
+          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "certificacoes" && "hidden"}`}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>            {t.campos.certificacoes}
+          </h2>
+          <button
+            type="button"
+            onClick={() => addField("certificacoes", "")}
+            className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-lg transition-colors w-full sm:w-auto justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+            </svg>
+            {t.botoes.adicionarCertificacao}
+          </button>
+        </div>
 
-        {/* Navegação entre seções */}
-        <div className="flex justify-between pt-6 border-t border-gray-200">
+        {formData.certificacoes.length > 0 ? (
+          formData.certificacoes.map((cert, idx) => (
+            <div key={idx} className="mb-6 sm:mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-md border border-gray-100 relative">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2">{t.campos.certificacao}</label>
+                <input
+                  type="text"
+                  value={cert}
+                  onChange={(e) => {
+                    const newCerts = [...formData.certificacoes];
+                    newCerts[idx] = e.target.value;
+                    setFormData(prev => ({ ...prev, certificacoes: newCerts }));
+                  }}
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder={t.placeholders.certificacao}
+                />
+              </div>
+              
+              <button
+                type="button"
+                onClick={() => removeField("certificacoes", idx)}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-red-500 transition-colors"
+                title="Remover certificação"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          ))
+        ) : (
+          <div className="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <p className="mt-2 text-sm text-gray-500">{t.mensagens.nenhumaCertificacao}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Navegação entre seções */}
+      <div className="flex flex-col-reverse sm:flex-row justify-between pt-6 sm:pt-8 border-t border-gray-200 gap-4">
+        <button
+          type="button"
+          onClick={() => {
+            const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
+            const currentIndex = sections.indexOf(activeSection);
+            if (currentIndex > 0) {
+              setActiveSection(sections[currentIndex - 1]);
+            }
+          }}
+          disabled={activeSection === "info"}
+          className={`flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors ${
+            activeSection === "info" ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:bg-blue-50"
+          }`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+          </svg>
+          Anterior
+        </button>
+        
+        {activeSection !== "certificacoes" ? (
           <button
             type="button"
             onClick={() => {
               const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
               const currentIndex = sections.indexOf(activeSection);
-              if (currentIndex > 0) {
-                setActiveSection(sections[currentIndex - 1]);
+              if (currentIndex < sections.length - 1) {
+                setActiveSection(sections[currentIndex + 1]);
               }
             }}
-            disabled={activeSection === "info"}
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              activeSection === "info" ? "text-gray-400 cursor-not-allowed" : "text-blue-600 hover:bg-blue-50"
+            className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors shadow-md hover:shadow-lg"
+          >
+            Próximo
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={isGenerating}
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white font-medium flex items-center justify-center transition-all ${
+              isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
             }`}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            Anterior
+            {isGenerating ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span className="text-sm sm:text-base">{t.mensagens.gerando}</span>
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm sm:text-base">{t.botoes.gerarCV}</span>
+              </>
+            )}
           </button>
-          
-          {activeSection !== "certificacoes" ? (
-            <button
-              type="button"
-              onClick={() => {
-                const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
-                const currentIndex = sections.indexOf(activeSection);
-                if (currentIndex < sections.length - 1) {
-                  setActiveSection(sections[currentIndex + 1]);
-                }
-              }}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Próximo
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-              </svg>
-            </button>
-          ) : (
-            <button
-              type="submit"
-              disabled={isGenerating}
-              className={`px-6 py-3 rounded-lg text-white font-medium flex items-center transition-all ${
-                isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
-              }`}
-            >
-              {isGenerating ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  {t.mensagens.gerando}
-                </>
-              ) : (
-                <>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  {t.botoes.gerarCV}
-                </>
-              )}
-            </button>
-          )}
-        </div>
-      </form>
+        )}
+      </div>
+    </form>
+  </main>
 
-      {/* Footer moderno */}
-      <footer className="bg-gray-50 px-6 py-6 border-t border-gray-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-4 mb-4 md:mb-0">
-              <a 
-                href="https://github.com/codedgabriel/ats-curriculo" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-700 transition-colors"
-                aria-label="GitHub do projeto"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                </svg>
-              </a>
-              <a 
-                href="https://linkedin.com/in/codegabriel" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-blue-600 transition-colors"
-                aria-label="LinkedIn do autor"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-            </div>
-            <p className="text-sm text-gray-500">
-              Criado por <span className="font-medium text-gray-700">D. Gabriel</span> - {new Date().getFullYear()}
-            </p>
-          </div>
+  {/* Footer */}
+  <footer className="bg-white border-t border-gray-200 py-6 sm:py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex items-center space-x-3 sm:space-x-4 mb-4 md:mb-0">
+          <a 
+            href="https://github.com/codedgabriel/ats-curriculo" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="GitHub do projeto"
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+          <a 
+            href="https://linkedin.com/in/codegabriel" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-blue-600 transition-colors"
+            aria-label="LinkedIn do autor"
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
         </div>
-      </footer>
+        <p className="text-xs sm:text-sm text-gray-500">
+          Criado por <span className="font-medium text-gray-700">D. Gabriel</span> - {new Date().getFullYear()}
+        </p>
+      </div>
     </div>
-  </div>
+  </footer>
 </div>
 
 );
