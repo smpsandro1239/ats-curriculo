@@ -384,10 +384,13 @@ function App() {
   };
 
   const formatarTextoParaPDF = (text, maxWidth, font, fontSize) => {
-    const words = text.split(' ');
-    let lines = [];
+  const paragraphs = text.split('\n');
+  let lines = [];
+  
+  for (const paragraph of paragraphs) {
+    const words = paragraph.split(' ');
     let currentLine = words[0] || '';
-
+    
     for (let i = 1; i < words.length; i++) {
       const word = words[i];
       const testLine = currentLine + ' ' + word;
@@ -400,245 +403,246 @@ function App() {
         currentLine = word;
       }
     }
-
-    lines.push(currentLine);
-    return lines;
-  };
+    
+    if (currentLine) {
+      lines.push(currentLine);
+    }
+  }
+  
+  return lines;
+};
 
   const gerarPDF = async () => {
-    if (!validateForm()) return;
+  if (!validateForm()) return;
+  
+  setIsGenerating(true);
+  try {
+    const pdfDoc = await PDFDocument.create();
+    let page = pdfDoc.addPage([595, 842]); // A4
+    const { width, height } = page.getSize();
     
-    setIsGenerating(true);
-    try {
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage([595, 842]); // A4
-      const { width, height } = page.getSize();
+    // Fontes padrão ATS-friendly (Helvetica)
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    
+    // Cores - apenas preto para melhor legibilidade e compatibilidade ATS
+    const black = rgb(0, 0, 0);
+    
+    // Margens generosas
+    const marginX = 50;
+    const marginY = 50;
+    const maxWidth = width - 2 * marginX;
+    let y = height - marginY;
+    
+    // Espaçamento otimizado
+    const lineHeight = 14;
+    const sectionGap = 16;
+    const paragraphGap = 6;
+    const minY = marginY + 50;
+
+    const checkForNewPage = (requiredSpace = lineHeight) => {
+      if (y - requiredSpace < minY) {
+        page = pdfDoc.addPage([595, 842]);
+        y = height - marginY;
+        return true;
+      }
+      return false;
+    };
+    
+    // Funções auxiliares atualizadas
+    const drawTitle = (text, size = 16) => {
+      checkForNewPage(size + 8);
+      page.drawText(text.toUpperCase(), { // Títulos em maiúsculo para ATS
+        x: marginX,
+        y,
+        size,
+        font: boldFont,
+        color: black,
+        lineHeight: size * 1.2
+      });
+      y -= size + 8;
+    };
+    
+    const drawSectionHeader = (text, size = 12) => {
+      checkForNewPage(size + 6);
+      page.drawText(text.toUpperCase(), {
+        x: marginX,
+        y,
+        size,
+        font: boldFont,
+        color: black,
+        lineHeight: size * 1.2
+      });
+      y -= size + 6;
+    };
+    
+    const drawText = (text, indent = 0, size = 11, maxWidthOverride = maxWidth) => {
+      const lines = Array.isArray(text) ? text : [text || ''];
+      lines.forEach(line => {
+        if (line.trim()) {
+          const formattedLines = formatarTextoParaPDF(line, maxWidthOverride - indent, font, size);
+          formattedLines.forEach(formattedLine => {
+            checkForNewPage(lineHeight);
+            page.drawText(formattedLine, {
+              x: marginX + indent,
+              y,
+              size,
+              font,
+              color: black, // Sempre preto
+              lineHeight: size * 1.4
+            });
+            y -= lineHeight;
+          });
+        }
+      });
+    };
+    
+    const drawBullet = (text, indent = 15, size = 11) => {
+      checkForNewPage(lineHeight);
+      page.drawText("•", {
+        x: marginX,
+        y: y + 4,
+        size: size + 2,
+        font,
+        color: black,
+      });
+      drawText(text, indent, size);
+    };
+    
+    const drawDivider = () => {
+      checkForNewPage(sectionGap);
+      y -= sectionGap/2; // Divisores mais discretos
+    };
+
+    // Cabeçalho otimizado para ATS
+    drawTitle(formData.nome, 18);
+    
+    if (formData.cargoDesejado) {
+      drawSectionHeader(formData.cargoDesejado, 14);
+      y -= 4;
+    }
+    
+    // Contato - uma linha só para ATS
+    let contactInfo = [];
+    if (formData.telefone) {
+      contactInfo.push(`${formData.codigoPais} ${formData.ddd} ${formData.telefone}`);
+    }
+    if (formData.email) contactInfo.push(formData.email);
+    if (formData.linkedin) contactInfo.push(`linkedin.com/in/${formData.linkedin}`);
+    if (formData.cidade) contactInfo.push(formData.cidade);
+    
+    drawText(contactInfo.join(" | "), 0, 10);
+    drawDivider();
+    
+    // Seções em ordem estratégica para ATS
+    if (formData.resumo) {
+      drawSectionHeader(t.secoesPDF.resumo);
+      drawText(formData.resumo);
+      drawDivider();
+    }
+    
+    if (formData.experiencias.length > 0) {
+      drawSectionHeader(t.secoesPDF.experiencia);
       
-      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-      
-      // Cores em preto com variações de tonalidade
-      const black = rgb(0, 0, 0);
-      const darkGray = rgb(0.3, 0.3, 0.3);
-      const mediumGray = rgb(0.5, 0.5, 0.5);
-      const lightGray = rgb(0.8, 0.8, 0.8);
-      
-      // Margens generosas para impressão
-      const marginX = 50;
-      const marginY = 50;
-      const maxWidth = width - 2 * marginX;
-      let y = height - marginY;
-      
-      // Espaçamento ampliado
-      const lineHeight = 16;
-      const sectionGap = 20;
-      const paragraphGap = 8;
-      
-      // Funções auxiliares para desenhar texto
-      const drawTitle = (text, size = 16, color = black) => {
-        page.drawText(text, {
-          x: marginX,
-          y,
-          size,
-          font: boldFont,
-          color,
-          lineHeight: size * 1.2
-        });
-        y -= size + 8;
-      };
-      
-      const drawSubtitle = (text, size = 12, color = darkGray) => {
-        page.drawText(text, {
-          x: marginX,
-          y,
-          size,
-          font: boldFont,
-          color,
-          lineHeight: size * 1.2
-        });
-        y -= size + 6;
-      };
-      
-      const drawText = (text, indent = 0, size = 11, maxWidthOverride = maxWidth, color = black) => {
-        const lines = Array.isArray(text) ? text : [text];
-        lines.forEach(line => {
-          if (line.trim()) {
-            const formattedLines = formatarTextoParaPDF(line, maxWidthOverride - indent, font, size);
-            formattedLines.forEach(formattedLine => {
-              page.drawText(formattedLine, {
-                x: marginX + indent,
-                y,
-                size,
-                font,
-                color,
-                lineHeight: size * 1.4
-              });
-              y -= lineHeight;
+      formData.experiencias.forEach(exp => {
+        if (exp.cargo || exp.empresa) {
+          let title = [];
+          if (exp.cargo) title.push(exp.cargo);
+          if (exp.empresa) title.push(` - ${exp.empresa}`);
+          if (exp.periodo) title.push(` (${exp.periodo})`);
+          
+          drawText(title.join(""), 0, 12);
+          
+          if (exp.tecnologias) {
+            drawText(`Tecnologias: ${exp.tecnologias}`, 0, 10);
+            y -= paragraphGap;
+          }
+          
+          if (exp.atividades) {
+            const atividades = exp.atividades.split('\n').filter(a => a.trim());
+            atividades.forEach(atividade => {
+              drawBullet(atividade.trim());
+            });
+            y -= paragraphGap;
+          }
+          
+          if (exp.resultados) {
+            const resultados = exp.resultados.split('\n').filter(r => r.trim());
+            resultados.forEach(resultado => {
+              drawBullet(`Resultado: ${resultado.trim()}`); // Prefixo claro para ATS
             });
           }
-        });
-      };
-      
-      const drawBullet = (text, indent = 15, size = 11) => {
-        page.drawText("•", {
-          x: marginX,
-          y: y + 4,
-          size: size + 2,
-          font,
-          color: black,
-        });
-        drawText(text, indent, size);
-      };
-      
-      const drawDivider = () => {
-        page.drawLine({
-          start: { x: marginX, y: y + sectionGap/2 },
-          end: { x: width - marginX, y: y + sectionGap/2 },
-          thickness: 0.5,
-          color: lightGray,
-        });
-        y -= sectionGap;
-      };
-      
-      // Cabeçalho minimalista
-      drawTitle(formData.nome.toUpperCase(), 20);
-      
-      // Cargo desejado em negrito
-      if (formData.cargoDesejado) {
-        drawSubtitle(formData.cargoDesejado, 14);
-        y -= 4;
-      }
-      
-      // Informações de contato
-      let contactInfo = [];
-      
-      // Telefone formatado
-      if (formData.telefone) {
-        let telefoneFormatado = '';
-        if (formData.codigoPais) telefoneFormatado += `${formData.codigoPais} `;
-        if (formData.ddd) telefoneFormatado += `(${formData.ddd}) `;
-        telefoneFormatado += formData.telefone;
-        contactInfo.push(telefoneFormatado);
-      }
-      
-      if (formData.email) contactInfo.push(formData.email);
-      if (formData.linkedin) contactInfo.push(`linkedin.com/in/${formData.linkedin}`);
-      if (formData.portfolio) contactInfo.push(formData.portfolio);
-      if (formData.cidade) contactInfo.push(formData.cidade);
-      
-      drawText(contactInfo.join(" • "), 0, 10, maxWidth, mediumGray);
+          
+          y -= 8;
+          checkForNewPage();
+        }
+      });
       drawDivider();
-      
-      // Resumo Profissional
-      if (formData.resumo) {
-        drawTitle(t.secoesPDF.resumo, 14);
-        drawText(formData.resumo, 0, 11);
-        drawDivider();
-      }
-      
-      // Experiência Profissional
-      if (formData.experiencias.length > 0) {
-        drawTitle(t.secoesPDF.experiencia, 14);
-        
-        formData.experiencias.forEach(exp => {
-          if (exp.cargo || exp.empresa) {
-            let title = [];
-            if (exp.cargo) title.push(exp.cargo);
-            if (exp.empresa) title.push(` | ${exp.empresa}`);
-            if (exp.periodo) title.push(` (${exp.periodo})`);
-            
-            drawSubtitle(title.join(""), 12);
-            
-            if (exp.tecnologias) {
-              drawText(`${t.campos.tecnologias}: ${exp.tecnologias}`, 0, 10, maxWidth, mediumGray);
-              y -= paragraphGap;
-            }
-            
-            if (exp.atividades) {
-              const atividades = exp.atividades.split('\n').filter(a => a.trim());
-              atividades.forEach(atividade => {
-                drawBullet(atividade.trim());
-              });
-              y -= paragraphGap;
-            }
-            
-            if (exp.resultados) {
-              const resultados = exp.resultados.split('\n').filter(r => r.trim());
-              resultados.forEach(resultado => {
-                drawBullet(resultado.trim());
-              });
-            }
-            
-            y -= 10; // Espaço extra entre experiências
-          }
-        });
-        drawDivider();
-      }
-      
-      // Formação Acadêmica
-      if (formData.formacoes.some(form => form.curso || form.instituicao)) {
-        drawTitle(t.secoesPDF.formacao, 14);
-        
-        formData.formacoes.forEach(form => {
-          if (form.curso || form.instituicao) {
-            const tipoCurso = tiposCurso.find(t => t.valor === form.tipo)?.label || '';
-            let title = [];
-            if (tipoCurso) title.push(`${tipoCurso} - `);
-            if (form.curso) title.push(form.curso);
-            if (form.instituicao) title.push(` | ${form.instituicao}`);
-            if (form.periodo) title.push(` (${form.periodo})`);
-            
-            drawBullet(title.join(""));
-          }
-        });
-        drawDivider();
-      }
-      
-      // Habilidades Técnicas
-      if (formData.habilidades.length > 0) {
-        drawTitle(t.secoesPDF.habilidades, 14);
-        drawText(formData.habilidades.join(", "), 0, 11);
-        drawDivider();
-      }
-      
-      // Idiomas
-      if (formData.idiomas.some(i => i.idioma)) {
-        drawTitle(t.secoesPDF.idiomas, 14);
-        
-        formData.idiomas.forEach(idioma => {
-          if (idioma.idioma) {
-            let text = idioma.idioma;
-            if (idioma.nivel) text += ` (${idioma.nivel})`;
-            drawBullet(text);
-          }
-        });
-        drawDivider();
-      }
-      
-      // Certificações
-      if (formData.certificacoes.length > 0) {
-        drawTitle(t.secoesPDF.certificacoes, 14);
-        
-        formData.certificacoes.forEach(cert => {
-          if (cert.trim()) drawBullet(cert);
-        });
-      }
-      
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = `CV_${formData.nome.replace(/\s+/g, '_')}.pdf`;
-      link.click();
-      
-      setSuccessMessage(t.mensagens.sucesso);
-      setTimeout(() => setSuccessMessage(""), 3000);
-    } catch (error) {
-      console.error("Erro ao gerar PDF:", error);
-    } finally {
-      setIsGenerating(false);
     }
-  };
+    
+    if (formData.habilidades.length > 0) {
+      drawSectionHeader(t.secoesPDF.habilidades);
+      // Habilidades em bullets para melhor parsing
+      formData.habilidades.forEach(habilidade => {
+        drawBullet(habilidade);
+      });
+      drawDivider();
+    }
+    
+    if (formData.formacoes.some(form => form.curso || form.instituicao)) {
+      drawSectionHeader(t.secoesPDF.formacao);
+      
+      formData.formacoes.forEach(form => {
+        if (form.curso || form.instituicao) {
+          const tipoCurso = tiposCurso.find(t => t.valor === form.tipo)?.label || '';
+          let title = [];
+          if (tipoCurso) title.push(`${tipoCurso} - `);
+          if (form.curso) title.push(form.curso);
+          if (form.instituicao) title.push(` - ${form.instituicao}`);
+          if (form.periodo) title.push(` (${form.periodo})`);
+          
+          drawBullet(title.join(""));
+        }
+      });
+      drawDivider();
+    }
+    
+    if (formData.idiomas.some(i => i.idioma)) {
+      drawSectionHeader(t.secoesPDF.idiomas);
+      
+      formData.idiomas.forEach(idioma => {
+        if (idioma.idioma) {
+          let text = `${idioma.idioma}`;
+          if (idioma.nivel) text += ` (${idioma.nivel})`;
+          drawBullet(text);
+        }
+      });
+      drawDivider();
+    }
+    
+    if (formData.certificacoes.length > 0) {
+      drawSectionHeader(t.secoesPDF.certificacoes);
+      
+      formData.certificacoes.forEach(cert => {
+        if (cert.trim()) drawBullet(cert);
+      });
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `CV_${formData.nome.replace(/\s+/g, '_')}_ATS.pdf`;
+    link.click();
+    
+    setSuccessMessage(t.mensagens.sucesso);
+    setTimeout(() => setSuccessMessage(""), 3000);
+  } catch (error) {
+    console.error("Erro ao gerar PDF:", error);
+  } finally {
+    setIsGenerating(false);
+  }
+};
 
   const renderExperienceFields = () => {
     return formData.experiencias.map((exp, idx) => (
