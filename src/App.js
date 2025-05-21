@@ -1462,7 +1462,7 @@ function App() {
 
     {/* Mensagem de incentivo */}
     <p className="text-gray-600 text-center text-sm mb-4">
-      Se este site te ajudou (ou te empregou) contribua com uma pequena doação ajuda a pagar a hospedagem.
+      Se este site te ajudou contribur com uma pequena doação ajuda a pagar a hospedagem (e um café).
     </p>
 
     
