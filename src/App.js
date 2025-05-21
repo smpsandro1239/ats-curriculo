@@ -322,6 +322,7 @@ function App() {
   const [habilidadesInput, setHabilidadesInput] = useState("");
   const [idiomaApp, setIdiomaApp] = useState("pt");
   const [activeSection, setActiveSection] = useState("info");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   // Obter textos traduzidos com base no idioma selecionado
   const t = textos[idiomaApp];
@@ -412,7 +413,20 @@ function App() {
   return lines;
 };
 
-  const gerarPDF = async () => {
+  const gerarPDF = async (fromModal = false) => {
+    if (!validateForm()) return;
+    
+    if (activeSection === "certificacoes" && !fromModal) {
+      setShowPaymentModal(true);
+      gerarPDF(true);
+      return;
+    }
+    
+    setIsGenerating(true);
+    try {
+
+
+
   if (!validateForm()) return;
   
   setIsGenerating(true);
@@ -642,7 +656,27 @@ function App() {
   } finally {
     setIsGenerating(false);
   }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+} catch (error) {
+      console.error("Erro ao gerar PDF:", error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const renderExperienceFields = () => {
     return formData.experiencias.map((exp, idx) => (
@@ -1327,54 +1361,118 @@ function App() {
             <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
           </svg>
           Anterior
-        </button>
-        
-        {activeSection !== "certificacoes" ? (
-          <button
-            type="button"
-            onClick={() => {
-              const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
-              const currentIndex = sections.indexOf(activeSection);
-              if (currentIndex < sections.length - 1) {
-                setActiveSection(sections[currentIndex + 1]);
-              }
-            }}
-            className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors shadow-md hover:shadow-lg"
-          >
-            Próximo
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-            </svg>
-          </button>
-        ) : (
-          <button
-            type="submit"
-            disabled={isGenerating}
-            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white font-medium flex items-center justify-center transition-all ${
-              isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
-            }`}
-          >
-            {isGenerating ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</button>
+            
+            {activeSection !== "certificacoes" ? (
+              <button
+                type="button"
+                onClick={() => {
+                  const sections = ["info", "resumo", "experiencia", "formacao", "habilidades", "idiomas", "certificacoes"];
+                  const currentIndex = sections.indexOf(activeSection);
+                  if (currentIndex < sections.length - 1) {
+                    setActiveSection(sections[currentIndex + 1]);
+                  }
+                }}
+                className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors shadow-md hover:shadow-lg"
+              >
+                Próximo
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                 </svg>
-                <span className="text-sm sm:text-base">{t.mensagens.gerando}</span>
-              </>
+              </button>
             ) : (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="text-sm sm:text-base">{t.botoes.gerarCV}</span>
-              </>
+              <button
+                type="button"
+                onClick={() => gerarPDF()}
+                disabled={isGenerating}
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white font-medium flex items-center justify-center transition-all ${
+                  isGenerating ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
+                }`}
+              >
+                {isGenerating ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span className="text-sm sm:text-base">{t.mensagens.gerando}</span>
+                  </>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span className="text-sm sm:text-base">{t.botoes.gerarCV}</span>
+                  </>
+                )}
+              </button>
             )}
-          </button>
-        )}
+          </div>
+        </form>
+      </main>
+
+      
+
+      {/* Modal de Doação */}
+      {showPaymentModal && (
+        
+        
+        <div
+  className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  onClick={(e) => {
+    // Fecha se clicar fora do modal
+    if (e.target === e.currentTarget) setShowPaymentModal(false);
+  }}
+>
+  <div className="relative w-full max-w-md rounded-2xl bg-white p-6 sm:p-8 shadow-2xl animate-fade-in-scale">
+    
+    {/* Botão X */}
+    <button
+      onClick={() => setShowPaymentModal(false)}
+      className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"
+      aria-label="Fechar modal"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    {/* Título */}
+    <h3 id="modal-title" className="text-2xl font-extrabold text-gray-800 text-center mb-2">
+      Ajude a manter este projeto vivo!
+    </h3>
+    <p className="text-sm text-gray-500 text-center mb-6">
+      Seu apoio faz toda a diferença. Obrigado por fazer parte disso
+    </p>
+
+    {/* QR Code com pulse animado */}
+    <div className="flex justify-center mb-6">
+      <div className="relative">
+        <div className="absolute inset-0 rounded-lg animate-pulse-ring" />
+        <img
+          src="/qrcode.png"
+          alt="QR Code para doação"
+          className="w-44 h-44 object-contain rounded-lg shadow-md relative z-10"
+        />
       </div>
-    </form>
-  </main>
+    </div>
+
+    {/* Mensagem de incentivo */}
+    <p className="text-gray-600 text-center text-sm mb-4">
+      Se este site te ajudou (ou te empregou) contribua com uma pequena doação ajuda a pagar a hospedagem.
+    </p>
+
+    
+  </div>
+</div>
+
+
+
+
+      )}
 
   {/* Footer */}
   <footer className="bg-white border-t border-gray-200 py-6 sm:py-8">
