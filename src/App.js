@@ -1545,10 +1545,21 @@ function App() {
       Se este site te ajudou contribur com uma pequena doação ajuda a pagar a hospedagem (e um café).
     </p>
 
-    
+    <div className="flex flex-col sm:flex-row gap-3 mt-6">
+      
+      <button
+  onClick={() => {
+    navigator.clipboard.writeText("80eb8e06-493b-4870-9dfc-47ed230c5d16");
+    alert("Copiada! Sua ajuda faz a diferença 🙌");
+  }}
+  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-center"
+>
+  copiar chave pix
+</button>
+
+    </div>
   </div>
 </div>
-
 
 
 
