@@ -8,7 +8,7 @@
 
 ---
 
-## 🚀 Sobre o projeto
+## 
 
 **ATS Currículo** é uma ferramenta web gratuita que ajuda candidatos a criarem currículos altamente compatíveis com sistemas ATS (Applicant Tracking Systems) — usados por empresas para filtrar candidatos automaticamente em processos seletivos.
 
@@ -16,7 +16,7 @@
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 ✅ Criação de currículos otimizados para ATS  
 ✅ Layout limpo, profissional e responsivo  
@@ -26,7 +26,7 @@
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 | Tecnologia     | Descrição                                      |
 |----------------|-----------------------------------------------|
@@ -36,7 +36,7 @@
 
 ---
 
-## 🧪 Como rodar localmente
+## Como rodar localmente
 
 ```bash
 # Clone este repositório
@@ -54,7 +54,7 @@ npm run dev
 ```
 
 O projeto estará disponível em http://localhost:XXXX
-## 📄 Licença
+## Licença
 
 Este projeto está sob a licença MIT.
 Sinta-se livre para usá-lo, contribuir e adaptá-lo!
