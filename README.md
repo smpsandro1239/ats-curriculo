@@ -1,41 +1,48 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/codedgabriel/ats-curriculo/main/public/logoats.png" width="120" alt="ATS Currículo Logo" />
+  
+  # ATS Currículo
 
-![Logo](https://raw.githubusercontent.com/codedgabriel/ats-curriculo/refs/heads/main/public/logoats.png)
+  <em>Crie currículos inteligentes e compatíveis com sistemas de rastreamento de candidatos (ATS)</em>
+</div>
 
-## 
+---
 
-O ATS Currículo é uma ferramenta web gratuita desenvolvida para ajudar candidatos a criarem currículos compatíveis com sistemas ATS (Applicant Tracking Systems), que são usados por empresas para filtrar candidatos automaticamente durante processos seletivos.
+## 🚀 Sobre o projeto
 
-O objetivo do projeto é aumentar suas chances de ser selecionado por recrutadores, oferecendo modelos otimizados, campos personalizáveis e exportação em PDF com layout limpo e profissional.
+**ATS Currículo** é uma ferramenta web gratuita que ajuda candidatos a criarem currículos altamente compatíveis com sistemas ATS (Applicant Tracking Systems) — usados por empresas para filtrar candidatos automaticamente em processos seletivos.
 
+> 📈 Aumente suas chances de ser selecionado por recrutadores com currículos bem estruturados, personalizáveis e exportáveis em PDF.
 
+---
 
-## Funcionalidades
+## ✨ Funcionalidades
 
-- Criação de currículos otimizados para leitura por ATS
-- Layout simples, limpo e responsivo
-- Exportação em PDF com alta compatibilidade
-- Adição de múltiplas experiências profissionais, formações, idiomas e habilidades
+✅ Criação de currículos otimizados para ATS  
+✅ Layout limpo, profissional e responsivo  
+✅ Exportação rápida em PDF com compatibilidade garantida  
+✅ Campos para múltiplas experiências, formações, idiomas e habilidades  
+✅ Interface intuitiva e amigável  
 
+---
 
-## Stack utilizada
+## 🛠️ Tecnologias utilizadas
 
-**React** - Biblioteca JavaScript para construção de interfaces
+| Tecnologia     | Descrição                                      |
+|----------------|-----------------------------------------------|
+| **React.js**   | Construção da interface e controle de estado  |
+| **Tailwind CSS** | Estilização rápida, moderna e responsiva     |
+| **PDF-lib**    | Geração de arquivos PDF diretamente no navegador |
 
-**Tailwind CSS** – Framework utilitário para estilos rápidos e responsivos
+---
 
-**PDF-lib** – Biblioteca para gerar arquivos PDF programaticamente
-
-
-
-## Rodando os testes
-
-Para rodar os testes, rode o seguinte comando
+## 🧪 Como rodar localmente
 
 ```bash
-# Clone o repositório
+# Clone este repositório
 git clone https://github.com/codedgabriel/ats-curriculo
 
-# Acesse o diretório
+# Acesse o diretório do projeto
 cd ats-curriculo
 
 # Instale as dependências
@@ -43,10 +50,13 @@ npm install
 
 # Inicie o servidor de desenvolvimento
 npm run dev
+
 ```
 
+O projeto estará disponível em http://localhost:5173
+## 📄 Licença
 
-## Licença
+Este projeto está sob a licença MIT.
+Sinta-se livre para usá-lo, contribuir e adaptá-lo!
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
+<div align="center"> Feito com ❤️ por <a href="https://github.com/codedgabriel" target="_blank">Gabriel</a> </div> ```
