@@ -274,6 +274,8 @@ function App() {
     }
   };
 
+
+
   const paisesTelefone = [
     { codigo: "+55", nome: "Brasil (+55)" },
     { codigo: "+1", nome: "EUA/Canadá (+1)" },
@@ -323,27 +325,55 @@ function App() {
   const [idiomaApp, setIdiomaApp] = useState("pt");
   const [activeSection, setActiveSection] = useState("info");
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showGenerationAnimation, setShowGenerationAnimation] = useState(false);
 
   // Obter textos traduzidos com base no idioma selecionado
   const t = textos[idiomaApp];
 
   const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.nome.trim()) newErrors.nome = t.campos.nome.replace("*", "") + " é obrigatório";
-    if (!formData.email.trim()) newErrors.email = t.campos.email.replace("*", "") + " é obrigatório";
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = "Email inválido";
-    
-    if (!formData.resumo.trim()) newErrors.resumo = t.campos.resumo.replace("*", "") + " é obrigatório";
-    
-    formData.formacoes.forEach((form, idx) => {
-      if (!form.curso.trim()) newErrors[`formacao_curso_${idx}`] = t.campos.curso.replace("*", "") + " é obrigatório";
-      if (!form.instituicao.trim()) newErrors[`formacao_instituicao_${idx}`] = t.campos.instituicao.replace("*", "") + " é obrigatória";
-    });
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const newErrors = {};
+  let firstErrorSection = null;
+  
+  // Validação do nome (seção "info")
+  if (!formData.nome.trim()) {
+    newErrors.nome = t.campos.nome.replace("*", "") + " é obrigatório";
+    if (!firstErrorSection) firstErrorSection = "info";
+  }
+  
+  // Validação do email (seção "info")
+  if (!formData.email.trim()) {
+    newErrors.email = t.campos.email.replace("*", "") + " é obrigatório";
+    if (!firstErrorSection) firstErrorSection = "info";
+  } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    newErrors.email = "Email inválido";
+    if (!firstErrorSection) firstErrorSection = "info";
+  }
+  
+  // Validação do resumo (seção "resumo")
+  if (!formData.resumo.trim()) {
+    newErrors.resumo = t.campos.resumo.replace("*", "") + " é obrigatório";
+    if (!firstErrorSection) firstErrorSection = "resumo";
+  }
+  
+  // Validação das formações (seção "formacao")
+  formData.formacoes.forEach((form, idx) => {
+    if (!form.curso.trim()) {
+      newErrors[`formacao_curso_${idx}`] = t.campos.curso.replace("*", "") + " é obrigatório";
+      if (!firstErrorSection) firstErrorSection = "formacao";
+    }
+    if (!form.instituicao.trim()) {
+      newErrors[`formacao_instituicao_${idx}`] = t.campos.instituicao.replace("*", "") + " é obrigatória";
+      if (!firstErrorSection) firstErrorSection = "formacao";
+    }
+  });
+  
+  setErrors(newErrors);
+  
+  return {
+    isValid: Object.keys(newErrors).length === 0,
+    firstErrorSection
   };
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -413,47 +443,55 @@ function App() {
   return lines;
 };
 
-  const gerarPDF = async (fromModal = false) => {
-    if (!validateForm()) return;
-    
-    if (activeSection === "certificacoes" && !fromModal) {
-      setShowPaymentModal(true);
-      gerarPDF(true);
-      return;
+
+
+
+ const gerarPDF = async (fromModal = false) => {
+  const validation = validateForm();
+  
+  if (!validation.isValid) {
+    if (validation.firstErrorSection) {
+      setActiveSection(validation.firstErrorSection);
+      setTimeout(() => {
+        const sectionElement = document.getElementById(validation.firstErrorSection);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
+    return;
+  }
+  
+  if (!fromModal) {
+    // Mostra a animação primeiro
+    setShowGenerationAnimation(true);
     
+    // Espera 2 segundos para a animação terminar
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Gera o PDF
     setIsGenerating(true);
     try {
-
-
-
-  if (!validateForm()) return;
   
-  setIsGenerating(true);
-  try {
     const pdfDoc = await PDFDocument.create();
-    let page = pdfDoc.addPage([595, 842]); // A4
+    let page = pdfDoc.addPage([595, 842]); // Tamanho A4 em pontos
     const { width, height } = page.getSize();
-    
-    // Fontes padrão ATS-friendly (Helvetica)
+
+    // Configurações de fonte e cores
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-    
-    // Cores - apenas preto para melhor legibilidade e compatibilidade ATS
     const black = rgb(0, 0, 0);
-    
-    // Margens generosas
+
+    // Margens e layout
     const marginX = 50;
     const marginY = 50;
     const maxWidth = width - 2 * marginX;
     let y = height - marginY;
-    
-    // Espaçamento otimizado
     const lineHeight = 14;
     const sectionGap = 16;
-    const paragraphGap = 6;
     const minY = marginY + 50;
 
+    // Função para verificar nova página
     const checkForNewPage = (requiredSpace = lineHeight) => {
       if (y - requiredSpace < minY) {
         page = pdfDoc.addPage([595, 842]);
@@ -462,11 +500,11 @@ function App() {
       }
       return false;
     };
-    
-    // Funções auxiliares atualizadas
+
+    // Funções auxiliares de desenho
     const drawTitle = (text, size = 16) => {
       checkForNewPage(size + 8);
-      page.drawText(text.toUpperCase(), { // Títulos em maiúsculo para ATS
+      page.drawText(text.toUpperCase(), {
         x: marginX,
         y,
         size,
@@ -476,7 +514,7 @@ function App() {
       });
       y -= size + 8;
     };
-    
+
     const drawSectionHeader = (text, size = 12) => {
       checkForNewPage(size + 6);
       page.drawText(text.toUpperCase(), {
@@ -489,12 +527,12 @@ function App() {
       });
       y -= size + 6;
     };
-    
-    const drawText = (text, indent = 0, size = 11, maxWidthOverride = maxWidth) => {
+
+    const drawText = (text, indent = 0, size = 11) => {
       const lines = Array.isArray(text) ? text : [text || ''];
       lines.forEach(line => {
         if (line.trim()) {
-          const formattedLines = formatarTextoParaPDF(line, maxWidthOverride - indent, font, size);
+          const formattedLines = formatarTextoParaPDF(line, maxWidth - indent, font, size);
           formattedLines.forEach(formattedLine => {
             checkForNewPage(lineHeight);
             page.drawText(formattedLine, {
@@ -502,7 +540,7 @@ function App() {
               y,
               size,
               font,
-              color: black, // Sempre preto
+              color: black,
               lineHeight: size * 1.4
             });
             y -= lineHeight;
@@ -510,7 +548,7 @@ function App() {
         }
       });
     };
-    
+
     const drawBullet = (text, indent = 15, size = 11) => {
       checkForNewPage(lineHeight);
       page.drawText("•", {
@@ -522,126 +560,157 @@ function App() {
       });
       drawText(text, indent, size);
     };
-    
+
     const drawDivider = () => {
       checkForNewPage(sectionGap);
-      y -= sectionGap/2; // Divisores mais discretos
+      y -= sectionGap/2;
     };
 
-    // Cabeçalho otimizado para ATS
+    // Cabeçalho do currículo
     drawTitle(formData.nome, 18);
     
     if (formData.cargoDesejado) {
       drawSectionHeader(formData.cargoDesejado, 14);
       y -= 4;
     }
-    
-    // Contato - uma linha só para ATS
-    let contactInfo = [];
-    if (formData.telefone) {
-      contactInfo.push(`${formData.codigoPais} ${formData.ddd} ${formData.telefone}`);
-    }
-    if (formData.email) contactInfo.push(formData.email);
-    if (formData.linkedin) contactInfo.push(`linkedin.com/in/${formData.linkedin}`);
-    if (formData.cidade) contactInfo.push(formData.cidade);
-    
-    drawText(contactInfo.join(" | "), 0, 10);
+
+    // Informações de contato
+    const contactInfo = [
+      formData.telefone && `${formData.codigoPais} ${formData.ddd} ${formData.telefone}`,
+      formData.email,
+      formData.linkedin && `linkedin.com/in/${formData.linkedin}`,
+      formData.portfolio && (formData.portfolio.includes('github.com') ? 
+                           `github.com/${formData.portfolio.split('github.com/').pop()}` : 
+                           formData.portfolio),
+      formData.cidade
+    ].filter(Boolean).join(" | ");
+
+    drawText(contactInfo, 0, 10);
     drawDivider();
-    
-    // Seções em ordem estratégica para ATS
+
+    // Seção de Resumo
     if (formData.resumo) {
       drawSectionHeader(t.secoesPDF.resumo);
       drawText(formData.resumo);
       drawDivider();
     }
-    
+
+    // Seção de Experiência Profissional
     if (formData.experiencias.length > 0) {
       drawSectionHeader(t.secoesPDF.experiencia);
       
-      formData.experiencias.forEach(exp => {
+      formData.experiencias.forEach((exp, index) => {
         if (exp.cargo || exp.empresa) {
-          let title = [];
-          if (exp.cargo) title.push(exp.cargo);
-          if (exp.empresa) title.push(` - ${exp.empresa}`);
-          if (exp.periodo) title.push(` (${exp.periodo})`);
+          // Cabeçalho da experiência
+          const header = [
+            exp.cargo,
+            exp.empresa && ` - ${exp.empresa}`,
+            exp.periodo && ` (${exp.periodo})`
+          ].filter(Boolean).join("");
           
-          drawText(title.join(""), 0, 12);
+          drawText(header, 0, 12);
           
+          // Tecnologias utilizadas
           if (exp.tecnologias) {
             drawText(`Tecnologias: ${exp.tecnologias}`, 0, 10);
-            y -= paragraphGap;
+            y -= 6;
           }
-          
+
+          // Atividades realizadas
           if (exp.atividades) {
-            const atividades = exp.atividades.split('\n').filter(a => a.trim());
-            atividades.forEach(atividade => {
-              drawBullet(atividade.trim());
-            });
-            y -= paragraphGap;
+            drawText("Atividades:", 0, 11);
+            exp.atividades.split('\n')
+              .filter(a => a.trim())
+              .forEach(atividade => {
+                drawBullet(atividade.trim().replace(/^[-•*]\s*/, ''));
+              });
+            y -= 6;
           }
-          
+
+          // Resultados alcançados
           if (exp.resultados) {
-            const resultados = exp.resultados.split('\n').filter(r => r.trim());
-            resultados.forEach(resultado => {
-              drawBullet(`Resultado: ${resultado.trim()}`); // Prefixo claro para ATS
-            });
+            drawText("Resultados:", 0, 11);
+            exp.resultados.split('\n')
+              .filter(r => r.trim())
+              .forEach(resultado => {
+                drawBullet(resultado.trim().replace(/^[-•*]\s*/, ''));
+              });
           }
           
-          y -= 8;
-          checkForNewPage();
+          // Espaço entre experiências
+          if (index < formData.experiencias.length - 1) {
+            y -= 12;
+            drawDivider();
+          }
         }
       });
       drawDivider();
     }
-    
+
+    // Seção de Habilidades
     if (formData.habilidades.length > 0) {
       drawSectionHeader(t.secoesPDF.habilidades);
-      // Habilidades em bullets para melhor parsing
-      formData.habilidades.forEach(habilidade => {
-        drawBullet(habilidade);
+      
+      // Agrupar habilidades removendo duplicatas
+      const uniqueSkills = [...new Set(formData.habilidades
+        .map(s => s.trim())
+        .filter(s => s.length > 0))];
+      
+      uniqueSkills.forEach(skill => {
+        drawBullet(skill);
       });
+      
       drawDivider();
     }
-    
-    if (formData.formacoes.some(form => form.curso || form.instituicao)) {
+
+    // Seção de Formação Acadêmica
+    if (formData.formacoes.some(f => f.curso || f.instituicao)) {
       drawSectionHeader(t.secoesPDF.formacao);
       
       formData.formacoes.forEach(form => {
         if (form.curso || form.instituicao) {
           const tipoCurso = tiposCurso.find(t => t.valor === form.tipo)?.label || '';
-          let title = [];
-          if (tipoCurso) title.push(`${tipoCurso} - `);
-          if (form.curso) title.push(form.curso);
-          if (form.instituicao) title.push(` - ${form.instituicao}`);
-          if (form.periodo) title.push(` (${form.periodo})`);
+          const title = [
+            tipoCurso && `${tipoCurso} -`,
+            form.curso,
+            form.instituicao && ` - ${form.instituicao}`,
+            form.periodo && ` (${form.periodo})`
+          ].filter(Boolean).join(" ");
           
-          drawBullet(title.join(""));
+          drawBullet(title);
         }
       });
       drawDivider();
     }
-    
+
+    // Seção de Idiomas
     if (formData.idiomas.some(i => i.idioma)) {
       drawSectionHeader(t.secoesPDF.idiomas);
       
       formData.idiomas.forEach(idioma => {
         if (idioma.idioma) {
-          let text = `${idioma.idioma}`;
-          if (idioma.nivel) text += ` (${idioma.nivel})`;
+          const text = [
+            idioma.idioma,
+            idioma.nivel && ` (${idioma.nivel})`
+          ].filter(Boolean).join("");
           drawBullet(text);
         }
       });
       drawDivider();
     }
-    
+
+    // Seção de Certificações
     if (formData.certificacoes.length > 0) {
       drawSectionHeader(t.secoesPDF.certificacoes);
       
-      formData.certificacoes.forEach(cert => {
-        if (cert.trim()) drawBullet(cert);
-      });
+      formData.certificacoes
+        .filter(c => c.trim())
+        .forEach(cert => {
+          drawBullet(cert);
+        });
     }
 
+    // Gerar e baixar o PDF
     const pdfBytes = await pdfDoc.save();
     const blob = new Blob([pdfBytes], { type: "application/pdf" });
     const link = document.createElement("a");
@@ -651,32 +720,26 @@ function App() {
     
     setSuccessMessage(t.mensagens.sucesso);
     setTimeout(() => setSuccessMessage(""), 3000);
-  } catch (error) {
-    console.error("Erro ao gerar PDF:", error);
-  } finally {
-    setIsGenerating(false);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-} catch (error) {
+  
+    setShowPaymentModal(true);
+    } catch (error) {
       console.error("Erro ao gerar PDF:", error);
     } finally {
       setIsGenerating(false);
+      setShowGenerationAnimation(false);
     }
-  };
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
   const renderExperienceFields = () => {
     return formData.experiencias.map((exp, idx) => (
@@ -936,21 +999,38 @@ function App() {
             </div>
           </div>
           
-          <div className="mt-6 sm:mt-8 bg-white/10 backdrop-blur-sm p-3 sm:p-4 rounded-lg max-w-3xl">
-            <h2 className="text-base sm:text-lg font-semibold mb-2 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-              {t.dicasATS}
-            </h2>
-            <ul className="list-disc pl-5 text-xs sm:text-sm text-blue-100 space-y-1">
-              {t.dicasLista.map((dica, index) => (
-                <li key={index}>{dica}</li>
-              ))}
-            </ul>
-          </div>
+          
         </div>
       </header>
+
+
+                  {showGenerationAnimation && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div className="bg-white p-8 rounded-xl max-w-md text-center animate-pop-in">
+      <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-green-100 rounded-full">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="h-12 w-12 text-green-500 animate-checkmark"
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h3 className="text-2xl font-bold text-gray-800 mb-2">Currículo Gerado!</h3>
+      <p className="text-gray-600 mb-6">Seu currículo ATS-friendly está pronto para download.</p>
+      <div className="w-full bg-gray-200 rounded-full h-2.5">
+        <div 
+          className="bg-blue-600 h-2.5 rounded-full animate-progress" 
+          style={{ animationDuration: '2s' }}
+        ></div>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Navegação por seções */}
       <div className="bg-white shadow-sm sticky top-0 z-10">
@@ -992,7 +1072,7 @@ function App() {
         
         <form onSubmit={(e) => { e.preventDefault(); gerarPDF(); }} className="space-y-6 sm:space-y-8">
           {/* Seção de Informações Pessoais */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "info" && "hidden"}`}>
+          <div id="info" className={`space-y-4 sm:space-y-6 ${activeSection !== "info" && "hidden"}`}>
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -1132,7 +1212,7 @@ function App() {
           </div>
           
           {/* Resumo Profissional */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "resumo" && "hidden"}`}>
+          <div id="resumo" className={`space-y-4 sm:space-y-6 ${activeSection !== "resumo" && "hidden"}`}>
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1154,7 +1234,7 @@ function App() {
           </div>
           
           {/* Experiência Profissional */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "experiencia" && "hidden"}`}>
+          <div id="experiencia" className={`space-y-4 sm:space-y-6 ${activeSection !== "experiencia" && "hidden"}`}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1187,7 +1267,7 @@ function App() {
           </div>
           
           {/* Formação Acadêmica */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "formacao" && "hidden"}`}>
+          <div id="formacao" className={`space-y-4 sm:space-y-6 ${activeSection !== "formacao" && "hidden"}`}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1213,7 +1293,7 @@ function App() {
           </div>
           
           {/* Habilidades Técnicas */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "habilidades" && "hidden"}`}>
+          <div id="habilidades" className={`space-y-4 sm:space-y-6 ${activeSection !== "habilidades" && "hidden"}`}>
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -1249,7 +1329,7 @@ function App() {
           </div>
           
           {/* Idiomas */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "idiomas" && "hidden"}`}>
+          <div id="idiomas" className={`space-y-4 sm:space-y-6 ${activeSection !== "idiomas" && "hidden"}`}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1282,7 +1362,7 @@ function App() {
           </div>
           
           {/* Certificações */}
-          <div className={`space-y-4 sm:space-y-6 ${activeSection !== "certificacoes" && "hidden"}`}>
+          <div id="certificacoes" className={`space-y-4 sm:space-y-6 ${activeSection !== "certificacoes" && "hidden"}`}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

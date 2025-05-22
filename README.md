@@ -41,7 +41,7 @@ npm install
 npm run dev
 ```
 
-Acesse em `http://localhost:5173` no navegador.
+Acesse em `http://localhost:XXXX` no navegador.
 
 ## 👨‍💻 Autor
 
