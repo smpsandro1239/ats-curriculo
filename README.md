@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/codedgabriel/ats-curriculo/main/public/logoats.png" width="240" alt="ATS Currículo Logo" />
+  <img src="https://raw.githubusercontent.com/codedgabriel/ats-curriculo/main/public/logoats.png" width="300" alt="ATS Currículo Logo" />
   
-  # ATS Currículo
+  #
 
   <em>Crie currículos inteligentes e compatíveis com sistemas de rastreamento de candidatos (ATS)</em>
 </div>
