@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/codedgabriel/ats-curriculo/main/public/logoats.png" width="120" alt="ATS Currículo Logo" />
+  <img src="https://raw.githubusercontent.com/codedgabriel/ats-curriculo/main/public/logoats.png" width="240" alt="ATS Currículo Logo" />
   
   # ATS Currículo
 
@@ -53,10 +53,10 @@ npm run dev
 
 ```
 
-O projeto estará disponível em http://localhost:5173
+O projeto estará disponível em http://localhost:XXXX
 ## 📄 Licença
 
 Este projeto está sob a licença MIT.
 Sinta-se livre para usá-lo, contribuir e adaptá-lo!
 
-<div align="center"> Feito com ❤️ por <a href="https://github.com/codedgabriel" target="_blank">Gabriel</a> </div> ```
+<div align="center"> Feito por <a href="https://github.com/codedgabriel" target="_blank">D. G</a> </div> 
